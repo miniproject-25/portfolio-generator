@@ -4,39 +4,176 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #efefef;
+        }
+
+        /* Header */
+        header {
+            background: #111;
+            color: #fff;
+            padding: 25px 0;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        /* Navigation */
+        nav {
+            background: #1a1a1a;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 18px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Content Wrapper */
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 40px auto;
+        }
+
+        h2 {
+            margin-top: 50px;
+            margin-bottom: 10px;
+            color: #222;
+        }
+
+        /* Skills Pills */
+        .skills-box {
+            margin-top: 15px;
+        }
+
+        .skill-tag {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 5px;
+            background: #222;
+            color: white;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        /* Card Style */
+        .card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            border-left: 5px solid #000;
+            margin-top: 15px;
+        }
+
+        .label {
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+
+        /* Lists */
+        ul {
+            padding-left: 20px;
+            line-height: 1.6;
+        }
+
+        /* Links */
+        a {
+            color: #0047b3;
+        }
+    </style>
 </head>
+
 <body>
-    <div id="portfolio-output"></div>
+
+    <header id="name"></header>
+
+    <nav>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#project">Project</a>
+        <a href="#qualifications">Qualifications</a>
+        <a href="#certifications">Certifications</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="container" id="portfolio-output"></div>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const encodedData = urlParams.get('data');
 
-        if(encodedData) {
+        if (encodedData) {
             try {
-                // Decode URL-safe Base64
                 const jsonStr = atob(encodedData.replace(/-/g, '+').replace(/_/g, '/'));
                 const data = JSON.parse(jsonStr);
 
-                const output = document.getElementById('portfolio-output');
+                document.getElementById("name").textContent = data.name;
 
-                output.innerHTML = `
-                    <h1>${data.name}</h1>
-                    <p><strong>About:</strong> ${data.about}</p>
-                    <p><strong>Skills:</strong> ${data.skills.join(', ')}</p>
-                    <p><strong>Project:</strong> ${data.project}</p>
-                    ${data.github ? `<p><strong>GitHub:</strong> <a href="${data.github}" target="_blank">${data.github}</a></p>` : ''}
-                    ${data.qualifications.length ? `<p><strong>Qualifications:</strong> ${data.qualifications.join(', ')}</p>` : ''}
-                    ${data.certifications.length ? `<p><strong>Certifications:</strong> ${data.certifications.join(', ')}</p>` : ''}
-                    ${data.experience.length ? `<p><strong>Experience:</strong> ${data.experience.join(', ')}</p>` : ''}
+                document.getElementById("portfolio-output").innerHTML = `
+                    
+                    <!-- ABOUT -->
+                    <h2 id="about">About Me</h2>
+                    <p>${data.about}</p>
+
+                    <!-- SKILLS -->
+                    <h2 id="skills">Skills</h2>
+                    <div class="skills-box">
+                        ${data.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+                    </div>
+
+                    <!-- PROJECT -->
+                    <h2 id="project">Mini Project</h2>
+                    <div class="card">
+                        <p class="label">${data.project}</p>
+                        <p>A mini project completed as part of my learning journey.</p>
+                    </div>
+
+                    <!-- QUALIFICATIONS -->
+                    <h2 id="qualifications">Qualifications</h2>
+                    <ul>
+                        ${data.qualifications.map(q => `<li>${q}</li>`).join('')}
+                    </ul>
+
+                    <!-- CERTIFICATIONS -->
+                    <h2 id="certifications">Certifications</h2>
+                    <ul>
+                        ${data.certifications.map(c => `<li>${c}</li>`).join('')}
+                    </ul>
+
+                    <!-- EXPERIENCE -->
+                    <h2 id="experience">Experience</h2>
+                    <ul>
+                        ${data.experience.map(e => `<li>${e}</li>`).join('')}
+                    </ul>
+
+                    <!-- CONTACT -->
+                    <h2 id="contact">Contact</h2>
+                    ${data.github ? `<p>GitHub: <a href="${data.github}" target="_blank">${data.github}</a></p>` : "<p>No GitHub provided.</p>"}
                 `;
-            } catch(e) {
-                document.getElementById('portfolio-output').innerHTML = "<p>Invalid portfolio data.</p>";
+                
+            } catch (err) {
+                document.getElementById("portfolio-output").innerHTML = "<p>Invalid portfolio data.</p>";
             }
         } else {
-            document.getElementById('portfolio-output').innerHTML = "<p>No portfolio data found.</p>";
+            document.getElementById("portfolio-output").innerHTML = "<p>No portfolio data found.</p>";
         }
     </script>
+
 </body>
 </html>
