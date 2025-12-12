@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="portfolioOutput"></div>
+
+    <script>
+        // Get encoded data from URL
+        function getQueryData() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('data');
+        }
+
+        const encoded = getQueryData();
+
+        if (!encoded) {
+            document.getElementById('portfolioOutput').innerHTML = "<h2>No portfolio data found.</h2>";
+        } else {
+            const data = JSON.parse(atob(encoded)); // Decode Base64
+
+            // Convert arrays into HTML <li> items
+            function generateList(items) {
+                return items.map(i => `<li>${i}</li>`).join('');
+            }
+
+            const htmlContent = `
+                <h1>${data.name}</h1>
+
+                <h3>About Me</h3>
+                <p>${data.about}</p>
+
+                <h3>Skills</h3>
+                <ul>${generateList(data.skills)}</ul>
+
+                <h3>Mini Project</h3>
+                <p>${data.project}</p>
+
+                ${data.github ? `
+                <h3>GitHub</h3>
+                <a href="${data.github}" target="_blank">${data.github}</a>
+                ` : ''}
+
+                <h3>Qualifications</h3>
+                <ul>${generateList(data.qualifications)}</ul>
+
+                <h3>Certifications</h3>
+                <ul>${generateList(data.certifications)}</ul>
+
+                <h3>Experience</h3>
+                <ul>${generateList(data.experience)}</ul>
+            `;
+
+            document.getElementById('portfolioOutput').innerHTML = htmlContent;
+        }
+    </script>
+
+</body>
+</html>
