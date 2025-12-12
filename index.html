@@ -11,26 +11,40 @@
     <h1>Portfolio Generator</h1>
 
     <form id="portfolioForm">
+
         <label>Name:</label>
-        <input type="text" id="name" required><br>
+        <input type="text" id="name" required>
 
         <label>Skills (comma separated):</label>
-        <input type="text" id="skills" required><br>
+        <input type="text" id="skills" required>
 
         <label>Mini Project Name:</label>
-        <input type="text" id="project" required><br>
+        <input type="text" id="project" required>
 
         <label>About:</label>
-        <textarea id="about" required></textarea><br>
+        <textarea id="about" required></textarea>
 
         <label>GitHub Link:</label>
-        <input type="url" id="github"><br>
+        <input type="url" id="github">
 
         <label>Qualifications (comma separated):</label>
-        <input type="text" id="qualifications"><br>
+        <input type="text" id="qualifications">
 
         <label>Certifications (comma separated):</label>
-        <input type="text" id="certifications"><br>
+        <input type="text" id="certifications">
 
         <label>Experience (comma separated):</label>
-        <input type="text" id="experience"><br>
+        <input type="text" id="experience">
+
+        <div class="btn-center">
+            <button type="submit">Create Portfolio</button>
+        </div>
+
+    </form>
+
+    <div id="output"></div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
