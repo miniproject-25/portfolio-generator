@@ -7,44 +7,25 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <h1>Portfolio Generator</h1>
 
     <form id="portfolioForm">
-
-        <label>Name:</label>
-        <input type="text" id="name" required>
-
-        <label>Skills (comma separated):</label>
-        <input type="text" id="skills" required>
-
-        <label>Mini Project Name:</label>
-        <input type="text" id="project" required>
-
-        <label>About:</label>
-        <textarea id="about" required></textarea>
-
-        <label>GitHub Link:</label>
-        <input type="url" id="github">
-
-        <label>Qualifications (comma separated):</label>
-        <input type="text" id="qualifications">
-
-        <label>Certifications (comma separated):</label>
-        <input type="text" id="certifications">
-
-        <label>Experience (comma separated):</label>
-        <input type="text" id="experience">
-
+        <input type="text" id="name" placeholder="Your Name" required>
+        <input type="text" id="skills" placeholder="Skills (comma separated)" required>
+        <input type="text" id="project" placeholder="Project Name" required>
+        <textarea id="about" placeholder="About Yourself" required></textarea>
+        <input type="text" id="github" placeholder="GitHub URL">
+        <input type="text" id="qualifications" placeholder="Qualifications (comma separated)">
+        <input type="text" id="certifications" placeholder="Certifications (comma separated)">
+        <input type="text" id="experience" placeholder="Experience (comma separated)">
+        
         <div class="btn-center">
-            <button type="submit">Create Portfolio</button>
+            <button type="submit">Generate Portfolio Link</button>
         </div>
-
     </form>
 
     <div id="output"></div>
 
     <script src="script.js"></script>
-
 </body>
 </html>
