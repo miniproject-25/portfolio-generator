@@ -10,16 +10,19 @@ form.addEventListener('submit', function(e) {
         project: document.getElementById('project').value.trim(),
         about: document.getElementById('about').value.trim(),
         github: document.getElementById('github').value.trim(),
-        qualifications: document.getElementById('qualifications').value.split(',').map(s => s.trim()),
-        certifications: document.getElementById('certifications').value.split(',').map(s => s.trim()),
-        experience: document.getElementById('experience').value.split(',').map(s => s.trim())
+        qualifications: document.getElementById('qualifications').value.split(',').map(s => s.trim()).filter(Boolean),
+        certifications: document.getElementById('certifications').value.split(',').map(s => s.trim()).filter(Boolean),
+        experience: document.getElementById('experience').value.split(',').map(s => s.trim()).filter(Boolean)
     };
 
-    // Convert to Base64
-    const encodedData = btoa(JSON.stringify(data));
+    // URL-safe Base64 encode
+    const encodedData = btoa(JSON.stringify(data))
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/=+$/, '');
 
-    // Auto-generate shareable link
-    const portfolioLink = `${window.location.origin}/portfolio.html?data=${encodedData}`;
+    // Relative link to portfolio.html
+    const portfolioLink = `portfolio.html?data=${encodedData}`;
 
     output.innerHTML = `
         <h2>Portfolio Link Generated!</h2>
